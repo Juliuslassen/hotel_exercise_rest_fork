@@ -28,7 +28,7 @@
         <db.password>postgres</db.password>
         <db.connection.string>jdbc:postgresql://localhost:5432/</db.connection.string>
         <!--  Javalin    -->
-        <javalin.port>7770</javalin.port>
+        <javalin.port>7070</javalin.port>
     </properties>
     <dependencies>
 
