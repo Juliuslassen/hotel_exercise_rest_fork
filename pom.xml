@@ -28,7 +28,7 @@
         <db.password>postgres</db.password>
         <db.connection.string>jdbc:postgresql://localhost:5432/</db.connection.string>
         <!--  Javalin    -->
-        <javalin.port>7070</javalin.port>
+        <javalin.port>7770</javalin.port>
     </properties>
     <dependencies>
 
@@ -198,6 +198,47 @@
                         <configuration>
                             <outputFile>${project.build.outputDirectory}/properties-from-pom.properties</outputFile>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--  Maven compiler plugin  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <transformers>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>dk/lyngby/Main
+                            </mainClass> <!-- Here you should put the main class of your application -->
+                        </transformer>
+                    </transformers>
+                    <filters>
+                        <filter> <!-- This filter is needed to avoid a bug in the shade plugin -->
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>module-info.class</exclude>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.example</pattern>
+                            <shadedPattern>my.project.com.example</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

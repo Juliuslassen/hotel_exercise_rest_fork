@@ -4,6 +4,7 @@ package dk.lyngby.dao.impl;
 import dk.lyngby.model.Hotel;
 import dk.lyngby.model.Room;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -47,6 +48,16 @@ public class RoomDao implements dk.lyngby.dao.IDao<Room, Integer> {
         try (var em = emf.createEntityManager()) {
             var query = em.createQuery("SELECT r FROM Room r", Room.class);
             return query.getResultList();
+        }
+    }
+
+    public List<Room> readByPrice(int minPrice, int maxPrice){
+        try(var em = emf.createEntityManager()){
+            TypedQuery<Room> query = em.createQuery("SELECT r FROM Room r WHERE r.roomPrice > :minPrice AND r.roomPrice < :maxPrice", Room.class);
+            query.setParameter("minPrice", minPrice);
+            query.setParameter("maxPrice", maxPrice);
+            List<Room> rooms = query.getResultList();
+            return rooms;
         }
     }
 

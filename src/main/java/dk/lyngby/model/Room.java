@@ -33,14 +33,19 @@ public class Room {
     private RoomType roomType;
 
     @Setter
+    @Column(name = "square_meters", nullable = false)
+    private double squareMeters;
+
+    @Setter
     @ManyToOne
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
-    public Room(Integer roomNumber, BigDecimal roomPrice, RoomType roomType) {
+    public Room(Integer roomNumber, BigDecimal roomPrice, RoomType roomType, double squareMeters) {
         this.roomNumber = roomNumber;
         this.roomPrice = roomPrice;
         this.roomType = roomType;
+        this.squareMeters = squareMeters;
     }
 
     @Override

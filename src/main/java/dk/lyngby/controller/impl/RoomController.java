@@ -11,6 +11,7 @@ import dk.lyngby.model.Room;
 import io.javalin.http.Context;
 import jakarta.persistence.EntityManagerFactory;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -47,6 +48,27 @@ public class RoomController implements IController<Room, Integer> {
         ctx.res().setStatus(200);
         ctx.json(roomDtos, RoomDto.class);
 
+    }
+
+    public void readByPrice(Context ctx){
+        //request
+        int minPrice = ctx.pathParamAsClass("min", Integer.class).check(i -> i > 0, "Not a valid price").get();
+        int maxPrice = ctx.pathParamAsClass("max", Integer.class).check(i -> i > 0, "Not a valid price").get();
+
+        if(minPrice > maxPrice){
+            ctx.res().setStatus(400);
+            ctx.json(new Message(400, "Min price cannot be higher than max price"));
+            return;
+        }
+
+        List<Room> rooms = dao.readByPrice(minPrice, maxPrice);
+        Room room = new Room(minPrice, new BigDecimal(1234), Room.RoomType.SUITE, maxPrice);
+        rooms.add(room);
+
+        List<RoomDto> roomDtos = RoomDto.toRoomDTOList(rooms);
+
+        ctx.status(200);
+        ctx.json(roomDtos, RoomDto.class);
     }
 
     @Override

@@ -17,6 +17,7 @@ public class RoomRoute {
                 post("/hotel/{id}", roomController::create, RouteRoles.ADMIN, RouteRoles.MANAGER);
                 get("/", roomController::readAll, RouteRoles.ANYONE);
                 get("/{id}", roomController::read, RouteRoles.ADMIN, RouteRoles.MANAGER);
+                get("/pricefrom={min}&priceto={max}", roomController::readByPrice, RouteRoles.ANYONE);
                 put("/{id}", roomController::update, RouteRoles.ADMIN, RouteRoles.MANAGER);
                 delete("/{id}", roomController::delete, RouteRoles.ADMIN, RouteRoles.MANAGER);
             });
