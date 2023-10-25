@@ -12,11 +12,13 @@ public class RoomDto {
     private Integer roomNumber;
     private Integer roomPrice;
     private Room.RoomType roomType;
+    private double squareMeters;
 
     public RoomDto(Room room) {
         this.roomNumber = room.getRoomNumber();
         this.roomPrice = room.getRoomPrice().intValue();
         this.roomType = room.getRoomType();
+        this.squareMeters = room.getSquareMeters();
     }
 
     public static List<RoomDto> toRoomDTOList(List<Room> rooms) {

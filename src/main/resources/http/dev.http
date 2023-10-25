@@ -1,54 +1,62 @@
 // Hotel API
 
 GET {{url}}/hotels
+Authorization: Bearer {{token}}
 
 ###
 
-GET {{url}}/hotels/6
+GET {{url}}/hotels/2
+Authorization: Bearer {{token}}
 
 ###
 
 POST {{url}}/hotels
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "hotelName": "Holiday Inn",
-  "hotelAddress": "Stuttgart",
-  "hotelType": "STANDARD"
+  "hotelName": "Radisson",
+  "hotelAddress": "Sindelfingen",
+  "hotelType": "BUDGET"
 }
 
 ###
 
-PUT {{url}}/hotels/4
+PUT {{url}}/hotels/200
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "hotelName": "Ritz Carlton",
-  "hotelAddress": "London City",
-  "hotelType": "LUXURY"
+  "hotelName": "Scandic",
+  "hotelAddress": "Lyngby Hovedgade",
+  "hotelType": "BUDGET"
 }
 
 ###
 
-DELETE {{url}}/hotels/5
+DELETE {{url}}/hotels/54
+Authorization: Bearer {{token}}
 
 ###
 
 // Room API
 
 GET {{url}}/rooms
+Authorization: Bearer {{token}}
 
 ###
 
-GET {{url}}/rooms/1
+GET {{url}}/rooms/100
+Authorization: Bearer {{token}}
 
 ###
 
-POST {{url}}/rooms/hotel/3
+POST {{url}}/rooms/hotel/2
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "roomNumber": 11,
+  "roomNumber": 112,
   "roomPrice": 1150,
   "roomType": "SINGLE"
 }
